@@ -4,11 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
+
+    <style>
+        #mainPage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgb(0, 153, 255), rgb(5, 21, 161));
+        }
+        #subPage {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            background: rgb(4, 0, 255);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #username {
+            font-size: 3vw;
+            color: white;
+        }
+        .link {
+            font-size: 1.5vw;
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <div>
-            
+    <div id="mainPage">
+        <div id="subPage">
+            <h1 id="username"></h1>
+            <a id="pageLink" class="link"></a>
         </div>
     </div>
     <script>
@@ -17,21 +50,23 @@
         
         if (session && session.user) {
             const user = session.user
-            const Username = document.createElement('h1');
-            Username.textContent = `Welcome ${user}!`;
-            document.body.appendChild(Username);
-            const chatLink = document.createElement('a');
+            const logoutLink = document.createElement('a');
+            const username = document.getElementById('username');
+            const chatLink = document.getElementById('pageLink');
+            logoutLink.href = '/logout';
             chatLink.href = '/chat';
+            logoutLink.textContent = 'Logout';
+            username.textContent = `Welcome ${user}!`;
             chatLink.textContent = 'Chat';
-            document.body.appendChild(chatLink);
+            logoutLink.id = 'logoutLink';
+            logoutLink.className = 'link';
+            document.getElementById('subPage').appendChild(logoutLink);
         } else {
-            const Guest = document.createElement('h1');
-            Guest.textContent = 'Welcome! Please login to use the Chat page';
-            document.body.appendChild(Guest);
-            const loginLink = document.createElement('a');
+            const guest = document.getElementById('username');
+            const loginLink = document.getElementById('pageLink');
             loginLink.href = '/login';
+            guest.textContent = 'Welcome! Please login to use the Chat page';
             loginLink.textContent = 'Login';
-            document.body.appendChild(loginLink);
         }
     </script>
 </body>

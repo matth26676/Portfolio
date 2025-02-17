@@ -56,7 +56,7 @@ function postlogin(req, res, db, crypto) {
                                 req.session.user = req.body.user;
                                 res.redirect('/');
                             } else {
-                                res.render("Incorrect Password Please check for errors in password...")
+                                res.send("Incorrect Password Please check for errors in password...")
                             }
                         }
                     })
@@ -75,7 +75,14 @@ function postlogin(req, res, db, crypto) {
 
 // handles any requests to logout the client
 function getlogout(req, res) {
-    res.render('index');
+    req.session.destroy((err) => {
+        if (err) {
+            console.log(err);
+            res.send('Error logging out');
+        } else {
+            res.redirect('/');
+        }
+    });
 }
 
 // handles any requests to the chat page

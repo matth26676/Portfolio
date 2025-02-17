@@ -1,19 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
+    <style>
+        #mainPage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgb(0, 153, 255), rgb(5, 21, 161));
+        }
+
+        #backLink {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: white;
+            width: 5vw;
+            height: 2vw;
+            font-size: 1.5vw;
+            text-align: center;
+            align-content: center;
+            line-height: 2vw;
+            border-radius: 10px;
+            text-decoration: none;
+        }
+
+        #contentBox {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80vw;
+            height: 40vw;
+            background: rgb(0, 80, 185);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #chatBox {
+            flex: 1;
+            overflow-y: scroll;
+        }
+
+        #messageContainer {
+            display: flex;
+            padding: 0.8vw;
+            bottom: 0;
+            background: lightgray;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        #messageBox {
+            flex: 1;
+            padding: 5px;
+            border-bottom-left-radius: 10px;
+            border-top-left-radius: 10px;
+        }
+
+        #messageButton {
+            padding: 5px;
+            border-bottom-right-radius: 10px;
+            border-top-right-radius: 10px;
+            text-align: center;
+        }
+    </style>
 </head>
+
 <body>
     <div id="mainPage">
-        <div id="contentBox" style="overflow-y: scroll;">
+        <a href="/" id="backLink">Back</a>
+        <div id="contentBox">
             <div id="chatBox">
 
             </div>
             <div id="messageContainer">
-                    <input type="text" id="messageBox" placeholder="Type your message here">
-                    <button id="messageButton" onclick="">Send</button>
+                <input type="textarea" id="messageBox" placeholder="Type your message here">
+                <button id="messageButton" onclick="">Send</button>
             </div>
         </div>
     </div>
@@ -36,7 +104,7 @@
                 return;
             }
             let currentTime = new Date().toLocaleTimeString();
-            socket.emit('message', {currentTime: currentTime, content: message});
+            socket.emit('message', { currentTime: currentTime, content: message });
         });
 
         // how to handle recieving a message
@@ -52,4 +120,5 @@
         });
     </script>
 </body>
+
 </html>
